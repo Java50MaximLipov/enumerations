@@ -1,22 +1,26 @@
 package telran.measure;
 
 public enum LengthUnit {
-	MM(1), CM(10), IN(25.4f), FT(304.8f), M(1000), KM(1_000_000);
+	MM(1), CM(10), IN(25.4f), M(1000), KM(1_000_000);
 
 	float value;
 
-	LengthUnit(float nMl) {
-		value = nMl;
+	LengthUnit(float value) {
+		this.value = value;
 	}
 
-	float getValue() {
+	public Length between(Length l1, Length l2) {
+		// returns Length object as length between l1 and l2 in "this" units
+		// Example: LengthUnit.M.between (new Length(200, LengthUnit.CM), new Length(1,
+		// LengthUnit.M))
+		// returns Length(1, LengthUnit.M)
+		Length length1 = l1.convert(this);
+		Length length2 = l2.convert(this);
+		return new Length(length2.getAmount() - length1.getAmount(), this);
+	}
+
+	public float getValue() {
 		return value;
 	}
 
-	public Length between(Length length2, Length length1) {
-		Length convValue1 = length1.convert(this);
-		Length convValue2 = length2.convert(this);
-		float diff = Math.abs(convValue2.getAmount() - convValue1.getAmount());
-		return new Length(diff, this);
-	}
 }

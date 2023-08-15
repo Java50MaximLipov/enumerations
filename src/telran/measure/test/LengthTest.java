@@ -2,16 +2,19 @@ package telran.measure.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import telran.measure.*;
 
 class LengthTest {
-
 	Length length1 = new Length(1, LengthUnit.KM);
 	Length length2 = new Length(500, LengthUnit.M);
 	Length l3 = new Length(50000, LengthUnit.CM);
+
+	@BeforeEach
+	void setUp() throws Exception {
+	}
 
 	@Test
 	void testEqualsObject() {
